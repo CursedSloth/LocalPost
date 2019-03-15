@@ -16,11 +16,16 @@
     @click="register">
       Register
     </button>
+    <br>
+    <br>
+    <button @click="back">
+      Go back
+    </button>
   </div>
 </template>
 
 <script>
-  import AuthenticationService from '@/services/AuthenticationService'
+import AuthenticationService from '@/services/AuthenticationService'
 export default {
   data () {
     return {
@@ -29,12 +34,15 @@ export default {
     }
   },
   methods: {
-    async register(){
+    async register () {
       const response = await AuthenticationService.register({
         email: this.email,
         password: this.password
-      })
+      });
       console.log(response.data)
+    },
+    back () {
+      this.$router.go(-1)
     }
   }
 }
