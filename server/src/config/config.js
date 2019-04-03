@@ -33,7 +33,7 @@ const getUserById = (req, res) => {
 const createUser = (req, res) => {
     const {email, password} = req.body;
 
-    pool.query('INSERT INTO "Users" (email, password) VALUES ($1, $2)', [email, password], (error, results) => {
+    pool.query('INSERT INTO Users (email, password) VALUES ($1, $2)', [email, password], (error, results) => {
         if (error) {
             console.log(error.stack);
         }
@@ -46,7 +46,7 @@ const updateUser = (req, res) => {
     const {email, password} = req.body;
 
     pool.query(
-        'UPDATE "Users" SET email = $1, password = $2 WHERE id = $3',
+        'UPDATE Users SET email = $1, password = $2 WHERE id = $3',
         [email, password, id],
         (error, results) => {
             if (error) {
@@ -60,7 +60,7 @@ const updateUser = (req, res) => {
 const deleteUser = (req, res) => {
     const id = parseInt(req.params.id);
 
-    pool.query('DELETE FROM "Users" WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM Users WHERE id = $1', [id], (error, results) => {
         if (error){
             console.log(error.stack);
         }
