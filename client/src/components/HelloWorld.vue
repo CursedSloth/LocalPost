@@ -3,10 +3,10 @@
     <h1>{{ msg }}</h1>
     <br>
     <h2>{{ msg2 }}</h2>
-    <button
+    <v-btn
       @click="switchPage">
       Go to register
-    </button>
+    </v-btn>
   </div>
 </template>
 
