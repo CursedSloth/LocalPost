@@ -1,6 +1,6 @@
-//const Pool = require('pg');
+//const crudOps = require('pg');
 const Sequelize = require('sequelize');
-const pool = new Sequelize({
+const crudOps = new Sequelize({
    user: 'postgres',
    host: 'localhost',
    database: 'localpost',
@@ -11,7 +11,7 @@ const pool = new Sequelize({
 
 const getUsers = (req,res) => {
 
-    pool.query('SELECT * FROM "Users" ORDER BY id ASC', (error, results) => {
+    crudOps.query('SELECT * FROM "Users" ORDER BY id ASC', (error, results) => {
         if (error) {
             console.log(error.stack);
         }
@@ -22,7 +22,7 @@ const getUsers = (req,res) => {
 const getUserById = (req, res) => {
     const id = parseInt(req.params.id);
 
-    pool.query('SELECT * FROM "Users" WHERE id = $1', [id], (error, results) =>{
+    crudOps.query('SELECT * FROM "Users" WHERE id = $1', [id], (error, results) =>{
         if (error) {
             console.log(error.stack);
         }
@@ -33,7 +33,7 @@ const getUserById = (req, res) => {
 const createUser = (req, res) => {
     const {email, password} = req.body;
 
-    pool.query('INSERT INTO Users (email, password) VALUES ($1, $2)', [email, password], (error, results) => {
+    crudOps.query('INSERT INTO Users (email, password) VALUES ($1, $2)', [email, password], (error, results) => {
         if (error) {
             console.log(error.stack);
         }
@@ -45,7 +45,7 @@ const updateUser = (req, res) => {
     const id = parseInt(req.params.id);
     const {email, password} = req.body;
 
-    pool.query(
+    crudOps.query(
         'UPDATE Users SET email = $1, password = $2 WHERE id = $3',
         [email, password, id],
         (error, results) => {
@@ -60,7 +60,7 @@ const updateUser = (req, res) => {
 const deleteUser = (req, res) => {
     const id = parseInt(req.params.id);
 
-    pool.query('DELETE FROM Users WHERE id = $1', [id], (error, results) => {
+    crudOps.query('DELETE FROM Users WHERE id = $1', [id], (error, results) => {
         if (error){
             console.log(error.stack);
         }
@@ -81,11 +81,14 @@ module.exports = {
         dialect: 'postgres',
         host: 'localhost'
     },
-    pool: {
+    crudOps: {
         getUsers,
         getUserById,
         createUser,
         updateUser,
         deleteUser
+    },
+    authentication: {
+        jwtSecret: process.env.JWT_SECRET || 'secret'
     }
 };

@@ -18,7 +18,7 @@
               single-line
               box
             ></v-text-field>
-            <div class="error" v-html="error"/>
+            <div class="error" v-html="error"></div>
             <v-btn
               class="teal" dark
               @click="register">
