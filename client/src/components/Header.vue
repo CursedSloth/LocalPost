@@ -9,10 +9,14 @@
       </v-toolbar-items>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat dark router to="login">
+        <v-btn
+          v-if="!$store.state.isUserLoggedIn"
+          flat dark router to="login">
           Log in
         </v-btn>
-        <v-btn flat dark router to="register">
+        <v-btn
+          v-if="!$store.state.isUserLoggedIn"
+          flat dark router to="register">
           Sign Up
         </v-btn>
       </v-toolbar-items>

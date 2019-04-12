@@ -15,7 +15,6 @@ function hashPassword (user) {
         .then(salt => bcrypt.hashSync(user.password, salt, null))
         .then(hash => {
             user.setDataValue('password', hash);
-            console.log(user.password)
         });
 }
 

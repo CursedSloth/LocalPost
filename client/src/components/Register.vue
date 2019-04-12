@@ -6,18 +6,24 @@
           <v-toolbar-title>Register</v-toolbar-title>
         </v-toolbar>
           <div class="pl-4 pr-4 pt-3 pb-2">
-            <v-text-field
-              label="Email"
-              v-model="email"
-              single-line
-              box
-            ></v-text-field>
-            <v-text-field
-              label="Password"
-              v-model="password"
-              single-line
-              box
-            ></v-text-field>
+            <form
+              name="LocalPost-form"
+              autocomplete="off">
+              <v-text-field
+                label="Email"
+                v-model="email"
+                single-line
+                box
+              ></v-text-field>
+              <v-text-field
+                label="Password"
+                type="password"
+                v-model="password"
+                single-line
+                box
+                autocomplete="new-password"
+              ></v-text-field>
+            </form>
             <div class="error" v-html="error"></div>
             <v-btn
               class="teal" dark
@@ -53,6 +59,8 @@ export default {
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
         console.log(response.data)
       } catch (error) {
         this.error = error.response.data.error

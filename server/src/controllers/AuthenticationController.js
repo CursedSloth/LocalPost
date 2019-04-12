@@ -34,7 +34,7 @@ module.exports = {
             });
             if (!user) {
                 return res.status(403).send({
-                    error: email
+                    error: 'User does not exist.'
                 });
             }
 
@@ -42,7 +42,7 @@ module.exports = {
 
             if(!isPasswordValid){
                 return res.status(403).send({
-                    error: 'Incorrect login'
+                    error: 'Invalid password.'
                 });
             }
 
