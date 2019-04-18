@@ -8,6 +8,9 @@
           </v-container>
         </main>
     </v-app>
+    <v-footer dark>
+      Made by Victor Ingvarsson
+    </v-footer>
   </div>
 </template>
 

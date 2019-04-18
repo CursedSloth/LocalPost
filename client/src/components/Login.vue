@@ -1,11 +1,7 @@
 <template>
   <v-layout align-center justify-center>
     <v-flex xs6>
-      <div class="white elevation-2">
-        <v-toolbar flat dense class="teal" dark>
-          <v-toolbar-title>Login</v-toolbar-title>
-        </v-toolbar>
-        <div class="pl-4 pr-4 pt-3 pb-2">
+      <panel title="Login">
           <v-text-field
             label="Email"
             v-model="email"
@@ -32,15 +28,16 @@
             @click="back">
             Go back
           </v-btn>
-        </div>
-      </div>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import AuthenticationService from '../services/AuthenticationService'
+import Panel from './Panel'
 export default {
+  components: {Panel},
   data () {
     return {
       email: '',
@@ -58,6 +55,7 @@ export default {
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
         console.log(response.data)
+        this.$router.push({name: 'UserMap'})
       } catch (error) {
         this.error = error.response.data.error
       }
