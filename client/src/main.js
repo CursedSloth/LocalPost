@@ -7,14 +7,10 @@ import Vuetify from 'vuetify'
 import {sync} from 'vuex-router-sync'
 import 'vuetify/dist/vuetify.min.css'
 import store from './store/store'
-import Vuelayers from 'vuelayers'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
-Vue.use(Vuelayers, {
-  dataProjection: 'EPSG:4326'
-})
 
 sync(store, router)
 /* eslint-disable no-new */
