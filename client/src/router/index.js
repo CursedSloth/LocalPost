@@ -4,6 +4,7 @@ import HelloWorld from '../components/HelloWorld'
 import Register from '../components/Register'
 import Login from '../components/Login'
 import UserMap from '../components/UserMap'
+import UserChat from '../components/UserChat'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/map',
       name: 'UserMap',
       component: UserMap
+    },
+    {
+      path: '/chat',
+      name: 'UserChat',
+      component: UserChat
     }
   ]
 })

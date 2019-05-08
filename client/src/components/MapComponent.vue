@@ -1,7 +1,9 @@
 <template>
   <div id="map" class="map">
-    <label for="track">Track position</label>
-    <input id="track" type="checkbox">
+      <label for="track">Track position</label>
+      <input id="track" type="checkbox"/>
+    <div id="info" style="display: none;">
+    </div>
   </div>
 </template>
 
@@ -17,13 +19,14 @@ import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style'
 
 export default {
   name: 'MapComponent',
+
   mounted () {
-    var view = new View({
+    let view = new View({
       center: [0, 0],
       zoom: 2
     })
 
-    var map = new Map({
+    let map = new Map({
       layers: [
         new Tilelayer({
           source: new OSM()
@@ -33,7 +36,7 @@ export default {
       view: view
     })
 
-    var geolocation = new Geolocation({
+    let geolocation = new Geolocation({
       trackingOptions: {
         enableHighAccuracy: true
       },
@@ -48,12 +51,18 @@ export default {
       geolocation.setTracking(this.checked)
     })
 
-    var accuracyFeature = new Feature()
+    geolocation.on('error', function (error) {
+      const info = document.getElementById('info')
+      info.innerHTML = error.message
+      info.style.display = ''
+    })
+
+    let accuracyFeature = new Feature()
     geolocation.on('change:accuracyGeometry', function () {
       accuracyFeature.setGeometry(geolocation.getAccuracyGeometry())
     })
 
-    var positionFeature = new Feature()
+    let positionFeature = new Feature()
     positionFeature.setStyle(new Style({
       image: new CircleStyle({
         radius: 6,
@@ -68,16 +77,18 @@ export default {
     }))
 
     geolocation.on('change:position', function () {
-      var coordinates = geolocation.getPosition()
+      let coordinates = geolocation.getPosition()
       positionFeature.setGeometry(coordinates ? new Point(coordinates) : null)
     })
 
-    new VectorLayer ({
+    let vectorLayer = new VectorLayer({
       map: map,
       source: new VectorSource({
         features: [accuracyFeature, positionFeature]
       })
     })
+
+    map.layers.addLayer(vectorLayer)
   }
 }
 </script>

@@ -9,9 +9,9 @@
           </p>
         </panel>
         <br>
-        <map-component></map-component>
       </v-flex>
     </v-layout>
+    <map-component></map-component>
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
     }
   },
   async mounted () {
+    return this.data()
     // this.users = (await UsersService.index()).data
     // console.log('users', this.users)
   }
